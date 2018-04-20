@@ -1,7 +1,9 @@
-# Koodi101 chat example
+# Simple Node React Example
 
 This is the repository for a simple chat application using
-[koa](http://koajs.com/) and [sequelize](http://docs.sequelizejs.com/)
+[react](https://reactjs.org/), [koa](http://koajs.com/) and [sequelize](http://docs.sequelizejs.com/).
+
+[![Build Status](https://travis-ci.org/mrako/node-react-example.svg?branch=master)](https://travis-ci.org/mrako/node-react-example)
 
 ## Prerequisites
 * [nodejs](http://nodejs.org)
