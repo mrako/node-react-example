@@ -37,10 +37,6 @@ uploads
 # Apidoc
 backend/doc
 
-# Sqlite
-*.sqlite
-*.sqlite3
-
 # ides
 *.idea
 *.iml

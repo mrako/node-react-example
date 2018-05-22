@@ -13,17 +13,21 @@ const getChats = async () => {
   try {
     const url = `${baseURL}/api/chats`
     const response = await fetch(url);
-    return response.json()
+    return response.json();
   } catch (error) {
     console.error(error);
   }
-  return { greeting :"Could not get chats from backend"};
+  return { greeting: 'Could not get chats from backend' };
 };
-
 
 const Chats = (props) => {
   const ChatList = props.chats.map(c => <li>{c.message}</li>);
-  return <ul>{ChatList}</ul>; 
+  return (
+    <div>
+      <h1>Chats:</h1>
+      <ul>{ChatList}</ul>
+    </div>
+  );
 };
 
 class App extends Component {
