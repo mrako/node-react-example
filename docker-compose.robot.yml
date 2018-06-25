@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+  robotdb:
+    image: postgres:9.4
+    environment:
+      POSTGRES_DB: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+    volumes:
+      - robotdbdata:/var/lib/postgresql/data
+
+  robotbackend:
+    build: backend
+    command: ./wait-for robotdb:5432 -- npm run dev
+    environment:
+      DATABASE_URL: postgres://example:example@robotdb/example
+    ports:
+      - 9000
+
+  robotfrontend:
+    build: frontend
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+    ports:
+      - 8000
+    environment:
+      ENDPOINT: http://robotbackend:9000
+
+  robot:
+    build: robot
+    command: sh -c './wait-for robotbackend:9000 && python /robot/run.py --outputdir /results'
+    environment:
+      BROWSER: HeadlessChrome
+      SERVER: http://robotfrontend:8000
+    volumes:
+      - ./robot:/robot:ro
+      - ./results/robot:/results:rw
+    depends_on:
+      - robotfrontend
+      - robotbackend
+      - robotdb
+
+volumes:
+  robotdbdata:
