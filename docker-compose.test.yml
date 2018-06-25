@@ -3,4 +3,20 @@ version: '2'
 services:
   test:
     build: backend
-    command: npm test
+    command: ./wait-for testdb:5432 -- npm test
+    environment:
+      DATABASE_URL: postgres://example:example@testdb/example
+    depends_on:
+      - testdb
+
+  testdb:
+    image: postgres:9.4
+    environment:
+      POSTGRES_DB: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+    volumes:
+      - testdbdata:/var/lib/postgresql/data
+
+volumes:
+  testdbdata:
