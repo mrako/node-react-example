@@ -1,14 +1,15 @@
-var Sequelize = require('sequelize');
-const config = require('../config');
+const Sequelize = require('sequelize');
 
-/** INIT DATABASE **/
+const DATABASE_URL = process.env.DATABASE_URL || 'postgres://example:example@localhost/example';
 
-const sequelize = new Sequelize(config.DATABASE_URL, {
+/* INIT DATABASE */
+
+const sequelize = new Sequelize(DATABASE_URL, {
   operatorsAliases: false,
   logging: false,
 });
 
-/** INIT CHAT TABLE WITH MESSAGE **/
+/* INIT CHAT TABLE WITH MESSAGE */
 
 const Chat = sequelize.define('chats', {
   message: Sequelize.TEXT,
@@ -29,4 +30,3 @@ exports.Chat = Chat;
 exports.sync = options => sequelize.sync(options);
 exports.transaction = options => sequelize.transaction(options);
 exports.close = options => sequelize.close(options);
-
