@@ -6,6 +6,6 @@ Test Teardown       Close All Browsers
 
 *** Test cases ***
 
-Should be able to show the homepage
+Should open the homepage
     Open browser and go to homepage
     Verify homepage is open
