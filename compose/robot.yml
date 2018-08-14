@@ -15,19 +15,19 @@ services:
       DATABASE_URL: postgres://example:example@robotdb/example
     ports:
       - 9000
+    depends_on:
+      - robotdb
 
   robotfrontend:
     build: frontend
-    volumes:
-      - ./frontend/src:/usr/src/app/src
-    ports:
-      - 8000
     environment:
       ENDPOINT: http://robotbackend:9000
+    ports:
+      - 8000:8000
 
   robot:
     build: robot
-    command: sh -c './wait-for robotbackend:9000 && python /robot/run.py --outputdir /results'
+    command: sh -c '/robot/wait-for robotfrontend:8000 -t 10 -r 30 --wget -- python /robot/run.py --exclude failing --outputdir /results'
     environment:
       BROWSER: HeadlessChrome
       SERVER: http://robotfrontend:8000

@@ -5,13 +5,13 @@ import ReactDOM from 'react-dom';
 
 import './assets/stylesheets/style.css';
 
-const baseURL = process.env.ENDPOINT || 'http://localhost:9000';
+const baseURL = process.env.ENDPOINT;
 
 /* ADD YOUR CODE AFTER THIS LINE */
 
 const getChats = async () => {
   try {
-    const url = `${baseURL}/api/chats`;
+    const url = `${baseURL}/chats`;
     const response = await fetch(url);
     return response.json();
   } catch (error) {
