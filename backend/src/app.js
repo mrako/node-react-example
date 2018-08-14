@@ -6,7 +6,7 @@ const cors = require('kcors');
 
 const database = require('./database');
 
-/** CREATE AND CONF THE WEB SERVER **/
+/* CREATE AND CONF THE WEB SERVER */
 
 const app = new Koa();
 
@@ -17,15 +17,15 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(cors({ credentials: true }));
 app.use(bodyParser());
 
-/** METHODS TO RESPOND TO THE ROUTES **/
+/* METHODS TO RESPOND TO THE ROUTES */
 
 const listChats = async (ctx) => {
-  let options = {};
+  const options = {};
 
-  let result = await database.Chat.findAll(options);
-  let chats = await Promise.all(result.map(chat => chat.toJSON()));
+  const result = await database.Chat.findAll(options);
+  const chats = await Promise.all(result.map(chat => chat.toJSON()));
 
-  let response = {
+  const response = {
     results: chats,
   };
 
@@ -35,13 +35,13 @@ const listChats = async (ctx) => {
 const createChat = async (ctx) => {
   const params = ctx.request.body;
 
-  const chat = await database.Chat.create({message: params.message});
+  const chat = await database.Chat.create({ message: params.message });
 
   ctx.body = await chat.toJSON();
   ctx.status = 201;
 };
 
-/** CONFIGURING THE API ROUTES **/
+/* CONFIGURING THE API ROUTES */
 
 const publicRouter = new Router({ prefix: '/api' });
 
