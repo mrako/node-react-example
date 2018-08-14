@@ -8,7 +8,7 @@ const database = require('./database');
 
 /** CREATE AND CONF THE WEB SERVER **/
 
-const app = module.exports = new Koa();
+const app = new Koa();
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger());
@@ -50,3 +50,5 @@ publicRouter.post('/chats', createChat);
 
 app.use(publicRouter.routes());
 app.use(publicRouter.allowedMethods());
+
+module.exports = app;

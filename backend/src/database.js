@@ -1,37 +1,32 @@
 var Sequelize = require('sequelize');
+const config = require('../config');
 
 /** INIT DATABASE **/
 
-const sequelize = new Sequelize({
+const sequelize = new Sequelize(config.DATABASE_URL, {
+  operatorsAliases: false,
   logging: false,
-  dialect: 'sqlite',
-  storage: './db/chat.sqlite',
 });
 
 /** INIT CHAT TABLE WITH MESSAGE **/
 
 const Chat = sequelize.define('chats', {
   message: Sequelize.TEXT,
-}, {
-  timestamps: true,
-  instanceMethods: {
-    toJSON: async function () {
-      return {
-        // Id and timestamps are generated automatically
-        id: this.id,
-        createdAt: this.createdAt,
-
-        // Message was added on the POST request
-        message: this.message,
-      };
-    },
-  },
 });
 
-/** EXPORT CHAT OBJECT **/
-
-exports.sync = (options) => {
-  return sequelize.sync(options);
+Chat.prototype.toJSON = function toJSON() {
+  return {
+    id: this.id,
+    message: this.message,
+    createdAt: this.createdAt,
+  };
 };
 
+/* EXPORT OBJECTS AND OPERATIONS */
+
 exports.Chat = Chat;
+
+exports.sync = options => sequelize.sync(options);
+exports.transaction = options => sequelize.transaction(options);
+exports.close = options => sequelize.close(options);
+
