@@ -1,12 +1,22 @@
 version: '2'
 
 services:
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRES_DB: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
   backend:
     build: backend
-    command: npm run dev
+    command: ./wait-for db:5432 -- npm run dev
+    environment:
+      DATABASE_URL: postgres://example:example@db/example
     volumes:
       - ./backend/src:/usr/src/app/src
-      - ./backend/db:/usr/src/app/db
     ports:
       - 9000:9000
 
@@ -17,4 +27,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      - ENDPOINT=${ENDPOINT}
+      ENDPOINT: ${ENDPOINT}
+
+volumes:
+  dbdata:

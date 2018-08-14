@@ -1,6 +1,20 @@
 version: '2'
 
 services:
+  testdb:
+    image: postgres:9.4
+    environment:
+      POSTGRES_DB: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+
   test:
     build: backend
-    command: npm test
+    command: ./wait-for testdb:5432 -- npm run test:xunit
+    environment:
+      DATABASE_URL: postgres://example:example@testdb/example
+      OUTPUT: /results/test-results.xml
+    depends_on:
+      - testdb
+    volumes:
+      - ./results/mocha:/results

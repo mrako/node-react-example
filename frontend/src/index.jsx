@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import './assets/stylesheets/style.css'
 
-const baseURL = process.env.ENDPOINT;
+const baseURL = process.env.ENDPOINT || 'http://localhost:9000';
 
 /****** ADD YOUR CODE AFTER THIS LINE ******/
 
