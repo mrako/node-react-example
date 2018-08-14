@@ -1,27 +1,30 @@
-/******** DO NOT DELETE THESE LINES ********/
+/* DO NOT DELETE THESE LINES */
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import './assets/stylesheets/style.css'
+import './assets/stylesheets/style.css';
 
-const baseURL = process.env.ENDPOINT || 'http://localhost:9000';
+const baseURL = process.env.ENDPOINT || 'http://localhost:9000';
 
-/****** ADD YOUR CODE AFTER THIS LINE ******/
+/* ADD YOUR CODE AFTER THIS LINE */
 
 const getChats = async () => {
   try {
-    const url = `${baseURL}/api/chats`
+    const url = `${baseURL}/api/chats`;
     const response = await fetch(url);
     return response.json();
   } catch (error) {
-    console.error(error);
+    console.error(error); // eslint-disable-line no-console
   }
   return { greeting: 'Could not get chats from backend' };
 };
 
 const Chats = (props) => {
-  const ChatList = props.chats.map(c => <li>{c.message}</li>);
+  const { chats } = props;
+
+  const ChatList = chats.map(c => <li>{c.message}</li>);
+
   return (
     <div>
       <h1>Chats:</h1>
@@ -39,13 +42,15 @@ class App extends Component {
   }
 
   render() {
-    return <Chats chats={this.state.chats} />;
+    const { chats } = this.state;
+
+    return <Chats chats={chats} />;
   }
 }
 
-/****** DO NOT DELETE AFTER THIS LINE ******/
+/* DO NOT DELETE AFTER THIS LINE */
 
 ReactDOM.render(
   <App />,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

@@ -3,14 +3,17 @@
   "version": "0.0.1",
   "description": "Koodi101 chat",
   "author": "Marko Klemetti <marko.klemetti@gmail.com>",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrako/node-react-example.git"
+  },
   "engines": {
     "node": ">=7"
   },
   "main": "server.js",
   "scripts": {
-    "dev": "LOGGING=true ./node_modules/.bin/nodemon server.js",
+    "dev": "./node_modules/.bin/nodemon server.js",
     "start": "node server.js",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --exit",
     "test:xunit": "NODE_ENV=test ./node_modules/mocha/bin/mocha --exit -R xunit > ${OUTPUT:-test-results.xml}",
