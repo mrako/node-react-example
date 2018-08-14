@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: example
       POSTGRES_USER: example
 
-  test:
+  mocha:
     build: backend
     command: ./wait-for testdb:5432 -- npm run test:xunit
     environment:
@@ -18,3 +18,19 @@ services:
       - testdb
     volumes:
       - ./results/mocha:/results
+
+  lint-backend:
+    build: backend
+    command: npm run lint
+
+  lint-frontend:
+    build: frontend
+    command: npm run lint
+
+  audit-backend:
+    build: backend
+    command: npm audit
+
+  audit-frontend:
+    build: frontend
+    command: npm audit
