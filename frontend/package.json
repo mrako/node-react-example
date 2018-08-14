@@ -9,7 +9,9 @@
     "url": "https://github.com/koodi101/react-tictactoe.git"
   },
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack.development.js --progress --inline --colors"
+    "start": "./node_modules/.bin/webpack-dev-server --config config/webpack.config.development.js --progress --inline --colors",
+    "build": "./node_modules/.bin/webpack --config config/webpack.config.production.js --progress --colors",
+    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx src/"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
